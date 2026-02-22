@@ -11,7 +11,7 @@ Luego de completar el proceso de **ETL y Análisis Exploratorio (EDA)**, el obje
 
 ---
 
-## Estructura Secuencial de la Etapa de Modelado Predictivo
+## Implementación de Modelado Predictivo
 
 ### 1 Ingeniería de Características (Feature Engineering)
 
