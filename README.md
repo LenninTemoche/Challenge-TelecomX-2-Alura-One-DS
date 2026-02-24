@@ -39,7 +39,22 @@ En esta fase se optimizaron las variables existentes y se crearon nuevos indicad
 
 ---
 
-### 3 Preprocesamiento de Datos (Data Preprocessing)
+### 3. Análisis Categórico y Test Chi²
+
+Se realizó un análisis de proporciones y se aplicó el test estadístico **Chi-cuadrado (Chi²)** para evaluar la asociación entre las variables categóricas y el Churn.
+
+- **Ranking de Relevancia Estadística**:
+  - **Variables más determinantes**: `Contract` (Chi² = 1108.89), `OnlineSecurity`, `SeniorCitizen`, `TechSupport` y `Dependents`. Todas con p-value < 0.05.
+  - **Variables irrelevantes**: `Gender` y `PhoneService` no mostraron asociación significativa con el abandono.
+- **Hallazgos Clave**:
+  - **Contratos**: Los clientes con contrato mensual (_Month-to-month_) presentan un riesgo de fuga de **42.64%**, frente al **2.83%** de los contratos a dos años.
+  - **Servicio de Internet**: La fibra óptica (_Fiber optic_) registra un churn del **41.78%**, significativamente superior al DSL (**18.89%**).
+  - **Método de Pago**: El cheque electrónico (_Electronic check_) es el método con mayor deserción (**45.15%**).
+  - **Soporte Técnico**: La ausencia de servicios de seguridad y soporte eleva la tasa de churn por encima del **30%**.
+
+---
+
+### 4 Preprocesamiento de Datos (Data Preprocessing)
 
 Preparación técnica de los datos para su uso en modelos de Machine Learning.
 
@@ -59,7 +74,7 @@ Preparación técnica de los datos para su uso en modelos de Machine Learning.
 
 ---
 
-### 4 División del Dataset
+### 5 División del Dataset
 
 Separación estratégica para validar el desempeño real del modelo.
 
@@ -74,7 +89,7 @@ Separación estratégica para validar el desempeño real del modelo.
 
 ---
 
-### 5 Validación Cruzada (Cross-Validation)
+### 6 Validación Cruzada (Cross-Validation)
 
 Antes de evaluar el modelo final, se implementa validación cruzada:
 
@@ -88,7 +103,7 @@ Esta etapa es clave para asegurar estabilidad del modelo, se aplica sólo alconj
 
 ---
 
-### 6 Selección y Entrenamiento de Modelos
+### 7 Selección y Entrenamiento de Modelos
 
 Se exploran diferentes algoritmos para comparar desempeño:
 
@@ -115,7 +130,7 @@ Cada modelo se entrena utilizando validación cruzada para comparación objetiva
 
 ---
 
-### 7 Evaluación de Métricas
+### 8 Evaluación de Métricas
 
 Dado que el problema es de clasificación binaria con posible desbalance, se priorizan las siguientes métricas:
 
@@ -139,7 +154,7 @@ Dado que el problema es de clasificación binaria con posible desbalance, se pri
 
 ---
 
-### 8 Optimización de Hiperparámetros
+### 9 Optimización de Hiperparámetros
 
 Para maximizar el rendimiento:
 
@@ -159,7 +174,7 @@ Todo validado mediante Cross-Validation.
 
 ---
 
-### 9 Modelo Final y Análisis de Importancia
+### 10 Modelo Final y Análisis de Importancia
 
 - Entrenamiento final con mejores hiperparámetros.
 - Evaluación sobre conjunto de prueba.
