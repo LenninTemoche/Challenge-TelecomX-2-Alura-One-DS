@@ -54,83 +54,51 @@ Se realizó un análisis de proporciones y se aplicó el test estadístico **Chi
 
 ---
 
-### 4 Preprocesamiento de Datos (Data Preprocessing)
+### 4. Preprocesamiento de Datos (Data Preprocessing)
 
-Preparación técnica de los datos para su uso en modelos de Machine Learning.
-
-- **Codificación de Variables Categóricas**:
-  - One-Hot Encoding para variables nominales (ej. `PaymentMethod`).
-  - Label Encoding para la variable objetivo (`Churn`: 0 = No, 1 = Sí).
-
-- **Escalado de Variables Numéricas**:
-  - Estandarización (StandardScaler) o Normalización (MinMaxScaler).
-  - Aplicado a variables como:
-    - `Tenure`
-    - `ChargesMonthly`
-    - `num_services`
-
-- **Pipeline de Preprocesamiento**:
-  Implementación de `Pipeline` para evitar data leakage y garantizar reproducibilidad.
+Preparación técnica de los datos para su uso en Machine Learning, integrado dentro de un `Pipeline` para evitar *data leakage* y garantizar reproducibilidad:
+- **Codificación de Variables Categóricas**: One-Hot Encoding para variables nominales y Label Encoding para la variable objetivo.
+- **Escalado de Variables Numéricas**: Estandarización (StandardScaler) aplicada a `Tenure`, `ChargesMonthly`, `ChargesTotal` y `num_services`.
 
 ---
 
-### 5 División del Dataset
+### 5. Análisis Visual Integrado
 
-Separación estratégica para validar el desempeño real del modelo.
-
-- **Definición de variables**:
-  - `X` → Variables predictoras.
-  - `y` → Variable objetivo (Churn).
-
-- **Train/Test Split**:
-  - 80% entrenamiento
-  - 20% prueba
-  - Uso de `stratify=y` para mantener proporción de churn.
+Investigación de patrones clave antes del modelado:
+- **Tenure, Contract y ChargesTotal vs Churn**: Análisis conjunto (boxplots, gráficos de barras y scatter plots) para detectar cómo el tiempo de contrato y el gasto acumulado impactan los segmentos con mayor riesgo de cancelación.
 
 ---
 
-### 6 Validación Cruzada (Cross-Validation)
+### 6. División del Dataset y Validación
 
-Antes de evaluar el modelo final, se implementa validación cruzada:
-
-- **K-Fold Cross Validation (k=5 o 10)**
-  Permite:
-  - Reducir varianza en la estimación del rendimiento.
-  - Detectar sobreajuste.
-  - Obtener métricas promedio más robustas.
-
-Esta etapa es clave para asegurar estabilidad del modelo, se aplica sólo alconjunto de entrenamiento.
+Se realizó una separación estratificada (`stratify=y`) asegurando la representatividad del Churn en todos los cortes:
+- **Train (~70%)**: Entrenamiento del modelo.
+- **Validation (~15%)**: Ajuste de hiperparámetros y selección del mejor modelo.
+- **Test (~15%)**: Aislamiento estricto para la evaluación final en un entorno realista.
 
 ---
 
-### 7 Selección y Entrenamiento de Modelos
+### 7. Implementación de Modelos: Modelo Base
 
-Se exploran diferentes algoritmos para comparar desempeño:
-
-- **Regresión Logística**
-  - Modelo base interpretable.
-  - Buena referencia inicial.
-
-- **Random Forest**
-  - Maneja relaciones no lineales.
-  - Robusto ante outliers y ruido.
-
-- **Gradient Boosting (ej. XGBoost o similares)**
-  - Alto poder predictivo.
-  - Captura patrones complejos.
-
-- **LightGBM**
-  - Más rápido y eficiente que otros boosting
-
-  - Excelente rendimiento en datasets estructurados
-
-  - Maneja bien variables categóricas codificadas
-
-Cada modelo se entrena utilizando validación cruzada para comparación objetiva.
+Se estableció un punto de partida (*benchmark*) utilizando un pipeline completo de entrenamiento y transformación:
+- **Algoritmo**: Regresión Logística (max_iter=1000)
+- **Resultados en Validation**:
+  - **Accuracy (Exactitud)**: ~80.3%
+  - **Recall (Sensibilidad para 'Yes')**: ~55%
+  - **F1-Score (Clase 'Yes')**: ~60%
+- *Diagnóstico*: El modelo previene adecuadamente a los clientes retenidos, pero requiere algoritmos más avanzados o afinación para capturar la mayor cantidad posible de fugas.
 
 ---
 
-### 8 Evaluación de Métricas
+### 8. Próximos Modelos y Validación Cruzada
+
+Se probarán algoritmos avanzados soportados por **K-Fold Cross Validation** para robustecer la estabilidad:
+- **Random Forest**: Manejo de relaciones no lineales.
+- **Gradient Boosting (XGBoost / LightGBM)**: Alto poder predictivo para patrones complejos y estructurados.
+
+---
+
+### 9. Evaluación de Métricas
 
 Dado que el problema es de clasificación binaria con posible desbalance, se priorizan las siguientes métricas:
 
@@ -154,7 +122,7 @@ Dado que el problema es de clasificación binaria con posible desbalance, se pri
 
 ---
 
-### 9 Optimización de Hiperparámetros
+### 10. Optimización de Hiperparámetros
 
 Para maximizar el rendimiento:
 
@@ -174,7 +142,7 @@ Todo validado mediante Cross-Validation.
 
 ---
 
-### 10 Modelo Final y Análisis de Importancia
+### 11. Modelo Final y Análisis de Importancia
 
 - Entrenamiento final con mejores hiperparámetros.
 - Evaluación sobre conjunto de prueba.
