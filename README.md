@@ -50,104 +50,85 @@ Se realizó un análisis de proporciones y se aplicó el test estadístico **Chi
   - **Contratos**: Los clientes con contrato mensual (_Month-to-month_) presentan un riesgo de fuga de **42.64%**, frente al **2.83%** de los contratos a dos años.
   - **Servicio de Internet**: La fibra óptica (_Fiber optic_) registra un churn del **41.78%**, significativamente superior al DSL (**18.89%**).
   - **Método de Pago**: El cheque electrónico (_Electronic check_) es el método con mayor deserción (**45.15%**).
-  - **Soporte Técnico**: La ausencia de servicios de seguridad y soporte eleva la tasa de churn por encima del **30%**.
 
 ---
 
-### 4. Preprocesamiento de Datos (Data Preprocessing)
-
-Preparación técnica de los datos para su uso en Machine Learning, integrado dentro de un `Pipeline` para evitar *data leakage* y garantizar reproducibilidad:
-- **Codificación de Variables Categóricas**: One-Hot Encoding para variables nominales y Label Encoding para la variable objetivo.
-- **Escalado de Variables Numéricas**: Estandarización (StandardScaler) aplicada a `Tenure`, `ChargesMonthly`, `ChargesTotal` y `num_services`.
-
----
-
-### 5. Análisis Visual Integrado
+### 4. Análisis Visual Integrado
 
 Investigación de patrones clave antes del modelado:
+
 - **Tenure, Contract y ChargesTotal vs Churn**: Análisis conjunto (boxplots, gráficos de barras y scatter plots) para detectar cómo el tiempo de contrato y el gasto acumulado impactan los segmentos con mayor riesgo de cancelación.
 
 ---
 
-### 6. División del Dataset y Validación
+### 5. Preprocesamiento de Datos y División del Dataset
 
-Se realizó una separación estratificada (`stratify=y`) asegurando la representatividad del Churn en todos los cortes:
-- **Train (~70%)**: Entrenamiento del modelo.
-- **Validation (~15%)**: Ajuste de hiperparámetros y selección del mejor modelo.
-- **Test (~15%)**: Aislamiento estricto para la evaluación final en un entorno realista.
+Preparación técnica de los datos para su uso en Machine Learning, incluyendo la separación estratégica de muestras:
+
+- **Codificación de la Variable Objetivo (`Churn`)**:
+  - Transformación manual mediante mapeo directo: `No` → 0, `Yes` → 1.
+  - Garantiza que el valor 1 represente el evento de interés (abandono).
+
+- **División del Dataset (Estratificada)**:
+  - Se realizó una separación con `stratify=y` para asegurar la representatividad del Churn en todos los cortes:
+  - **Train (~70%)**: Entrenamiento del modelo.
+  - **Validation (~15%)**: Ajuste de hiperparámetros y selección del mejor modelo.
+  - **Test (~15%)**: Aislamiento estricto para la evaluación final.
+
+- **Preprocesamiento de Variables Predictoras (X)**:
+  - **Variables Categóricas**: `OneHotEncoder` con `drop='first'` y `handle_unknown='ignore'`.
+  - **Variables Numéricas**: `StandardScaler` aplicado a `Tenure`, `ChargesMonthly`, `ChargesTotal` y `num_services`.
+
+- **Pipeline de Preprocesamiento**:
+  - Implementación mediante `ColumnTransformer` y `Pipeline` para encapsular transformaciones.
+  - **Aislamiento de Datos**: El preprocesador se ajusta (`fit`) **exclusivamente con el conjunto de entrenamiento**, eliminando riesgos de _data leakage_.
 
 ---
 
-### 7. Implementación de Modelos: Modelo Base
+### 6. Implementación de Modelos: Modelo Base
 
-Se estableció un punto de partida (*benchmark*) utilizando un pipeline completo de entrenamiento y transformación:
+Se estableció un punto de partida (_benchmark_) utilizando un pipeline completo:
+
 - **Algoritmo**: Regresión Logística (max_iter=1000)
 - **Resultados en Validation**:
   - **Accuracy (Exactitud)**: ~80.3%
   - **Recall (Sensibilidad para 'Yes')**: ~55%
   - **F1-Score (Clase 'Yes')**: ~60%
-- *Diagnóstico*: El modelo previene adecuadamente a los clientes retenidos, pero requiere algoritmos más avanzados o afinación para capturar la mayor cantidad posible de fugas.
+- _Diagnóstico_: El modelo previene adecuadamente a los clientes retenidos, pero requiere algoritmos más avanzados o afinación para capturar la mayor cantidad posible de fugas.
 
 ---
 
-### 8. Próximos Modelos y Validación Cruzada
+### 7. Próximos Modelos y Validación Cruzada
 
-Se probarán algoritmos avanzados soportados por **K-Fold Cross Validation** para robustecer la estabilidad:
+Se probarán algoritmos avanzados soportados por **K-Fold Cross Validation**:
+
 - **Random Forest**: Manejo de relaciones no lineales.
 - **Gradient Boosting (XGBoost / LightGBM)**: Alto poder predictivo para patrones complejos y estructurados.
 
 ---
 
-### 9. Evaluación de Métricas
+### 8. Evaluación de Métricas
 
-Dado que el problema es de clasificación binaria con posible desbalance, se priorizan las siguientes métricas:
+Se priorizan las siguientes métricas dado el posible desbalance:
 
-- **Matriz de Confusión**
-  - Falsos Positivos (FP)
-  - Falsos Negativos (FN)
-
-- **Recall (Sensibilidad)**
-  - Métrica crítica en churn: identificar correctamente a quienes se irán.
-
-- **Precision**
-  - Minimizar falsas alarmas.
-
-- **F1-Score**
-  - Balance entre Precision y Recall.
-
-- **ROC-AUC**
-  - Evaluación global del poder discriminatorio del modelo.
-
-* En `variables` como churn, **Recall** tiene mayor relevancia en resultados.
+- **Matriz de Confusión**: FP y FN.
+- **Recall (Sensibilidad)**: Métrica crítica en churn.
+- **ROC-AUC**: Evaluación global del poder discriminatorio.
 
 ---
 
-### 10. Optimización de Hiperparámetros
+### 9. Optimización de Hiperparámetros
 
-Para maximizar el rendimiento:
-
-- **GridSearchCV**
-- **RandomizedSearchCV**
-
-Aplicado sobre el modelo con mejor desempeño preliminar.
-
-Objetivo:
-
-- Ajustar profundidad de árboles.
-- Número de estimadores.
-- Regularización.
-- Learning rate (en boosting).
-
-Todo validado mediante Cross-Validation.
+- **GridSearchCV / RandomizedSearchCV** sobre el modelo con mejor desempeño.
+- Ajuste de parámetros clave (profundidad, estimadores, learning rate).
 
 ---
 
-### 11. Modelo Final y Análisis de Importancia
+### 10. Modelo Final y Análisis de Importancia
 
 - Entrenamiento final con mejores hiperparámetros.
-- Evaluación sobre conjunto de prueba.
-- Análisis de importancia de variables.
-- Interpretación estratégica de resultados.
+- Evaluación sobre conjunto de prueba aislado.
+- Análisis de importancia de variables e interpretación estratégica.
 
 ---
 
@@ -155,16 +136,12 @@ Todo validado mediante Cross-Validation.
 
 - Modelo robusto y validado.
 - Identificación de variables clave en churn.
-- Segmentación de clientes en riesgo.
-- Base técnica para implementar estrategias de retención.
+- Base técnica para estrategias de retención.
 
 ---
 
 ## Impacto Estratégico
 
-Este modelo predictivo permite:
-
 - Implementar campañas de retención dirigidas.
-- Optimizar recursos comerciales.
-- Reducir tasa de churn.
+- Optimizar recursos comerciales y reducir tasa de churn.
 - Incrementar el Customer Lifetime Value (CLV).
