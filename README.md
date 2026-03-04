@@ -85,63 +85,64 @@ Preparación técnica de los datos para su uso en Machine Learning, incluyendo l
 
 ---
 
-### 6. Implementación de Modelos: Modelo Base
+### 6. Implementación de Modelos Base (Etapa 1)
 
-Se estableció un punto de partida (_benchmark_) utilizando un pipeline completo:
+Se evaluaron cinco algoritmos en su configuración inicial (sin balanceo de clases) para establecer un _benchmark_ de rendimiento utilizando un `Pipeline` integral.
 
-- **Algoritmo**: Regresión Logística (max_iter=1000)
-- **Resultados en Validation**:
-  - **Accuracy (Exactitud)**: ~80.3%
-  - **Recall (Sensibilidad para 'Yes')**: ~55%
-  - **F1-Score (Clase 'Yes')**: ~60%
-- _Diagnóstico_: El modelo previene adecuadamente a los clientes retenidos, pero requiere algoritmos más avanzados o afinación para capturar la mayor cantidad posible de fugas.
+#### Resultados y Ranking (Validation Set)
 
----
+| Modelo                  |  F1-Score  |   Recall   | Accuracy | Diagnóstico           |
+| :---------------------- | :--------: | :--------: | :------: | :-------------------- |
+| **Logistic Regression** | **0.5965** | **0.5504** |  80.30%  | 🟢 Bien generalizado  |
+| **LightGBM**            |   0.5737   |   0.5180   |  75.64%  | 🟡 Leve sobreajuste   |
+| **XGBoost**             |   0.5668   |   0.5036   |  75.83%  | 🟡 Leve sobreajuste   |
+| **MLP**                 |   0.5424   |   0.4712   |  74.69%  | 🟢 Bien generalizado  |
+| **Random Forest**       |   0.5342   |   0.4640   |  78.59%  | 🔴 Sobreajuste severo |
 
-### 7. Próximos Modelos y Validación Cruzada
+### 7. Implementación de Modelos Balanceados (Etapa 2)
 
-Se probarán algoritmos avanzados soportados por **K-Fold Cross Validation**:
+Dado el desbalance de clases, se aplicaron técnicas de balanceo para priorizar el **Recall** (detección de abandonos) y corregir el sobreajuste.
 
-- **Random Forest**: Manejo de relaciones no lineales.
-- **Gradient Boosting (XGBoost / LightGBM)**: Alto poder predictivo para patrones complejos y estructurados.
+- **Técnicas aplicadas:** `class_weight='balanced'` (LR, RF, LGBM), `scale_pos_weight` (XGBoost) y **SMOTE** (MLP).
+- **Ajustes:** Se limitó la profundidad en modelos de árboles (`max_depth=8`) y se aumentó la regularización (`C=0.1`) para mejorar la generalización.
 
----
+#### Comparativa de Modelos Optimizados (Validation Set)
 
-### 8. Evaluación de Métricas
+| Modelo                  |   Recall   |  F1-Score  |     Diferencia vs Base     |
+| :---------------------- | :--------: | :--------: | :------------------------: |
+| **Logistic Regression** | **0.7842** |   0.6158   | 🟢 +42% de Recall mejorado |
+| **MLP (SMOTE)**         |   0.7590   |   0.6134   | 🟢 +61% de Recall mejorado |
+| **Random Forest**       |   0.7518   | **0.6353** | 🟢 +62% de Recall mejorado |
+| **XGBoost**             |   0.7410   |   0.6186   | 🟢 +47% de Recall mejorado |
 
-Se priorizan las siguientes métricas dado el posible desbalance:
+### 8. Evaluación de Métricas y Diagnóstico Final
 
-- **Matriz de Confusión**: FP y FN.
-- **Recall (Sensibilidad)**: Métrica crítica en churn.
-- **ROC-AUC**: Evaluación global del poder discriminatorio.
+La optimización permitió alcanzar un equilibrio superior entre precisión y sensibilidad:
 
----
+- **Identificación Proactiva:** Se logran capturar casi 8 de cada 10 posibles casos de churn.
+- **Generalización Ganada:** El _gap_ entre entrenamiento y validación se redujo sustancialmente en Random Forest (de 21% a 2% de diferencia en Accuracy).
 
-### 9. Optimización de Hiperparámetros
+| Métrica Crítica              | Modelo Ganador      |   Valor    |
+| :--------------------------- | :------------------ | :--------: |
+| **Mejor Recall (Detección)** | Logistic Regression |   0.7842   |
+| **Mejor F1-Score (Balance)** | Random Forest       |   0.6353   |
+| **Mejor Generalización**     | MLP (SMOTE)         | Gap 0.0137 |
 
-- **GridSearchCV / RandomizedSearchCV** sobre el modelo con mejor desempeño.
-- Ajuste de parámetros clave (profundidad, estimadores, learning rate).
+### 9. Recomendación Estratégica de Negocio
 
----
+Se sugieren dos caminos de acción basados en el perfil del modelo:
 
-### 10. Modelo Final y Análisis de Importancia
-
-- Entrenamiento final con mejores hiperparámetros.
-- Evaluación sobre conjunto de prueba aislado.
-- Análisis de importancia de variables e interpretación estratégica.
-
----
-
-## Resultados Esperados
-
-- Modelo robusto y validado.
-- Identificación de variables clave en churn.
-- Base técnica para estrategias de retención.
+1.  **Estrategia de Retención Masiva (Prioridad: No perder clientes):**
+    - Utilizar **Regresión Logística (Balanced)**. Es el modelo más sensible para detectar el churn (**78% Recall**), ideal para campañas preventivas amplias.
+2.  **Estrategia de Eficiencia Operativa (Prioridad: Costo-Beneficio):**
+    - Utilizar **Random Forest (Balanced)**. Ofrece el mejor balance global (**0.635 F1-Score**) reduciendo la cantidad de clientes contactados innecesariamente (menos falsos positivos).
 
 ---
 
 ## Impacto Estratégico
 
-- Implementar campañas de retención dirigidas.
-- Optimizar recursos comerciales y reducir tasa de churn.
-- Incrementar el Customer Lifetime Value (CLV).
+El uso de estos modelos permite a TelecomX optimizar sus recursos al dirigir sus esfuerzos de fidelización específicamente a los segmentos de alto riesgo, incrementando el **Customer Lifetime Value (CLV)** y reduciendo la tasa de deserción mediante intervenciones oportunas.
+
+---
+
+_Este proyecto sigue un flujo de MLOps utilizando Pipelines para asegurar la reproducibilidad y facilidad de despliegue._
