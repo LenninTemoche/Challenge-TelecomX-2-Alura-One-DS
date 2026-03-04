@@ -115,6 +115,14 @@ Dado el desbalance de clases, se aplicaron técnicas de balanceo para priorizar 
 | **Random Forest**       |   0.7518   | **0.6353** | 🟢 +62% de Recall mejorado |
 | **XGBoost**             |   0.7410   |   0.6186   | 🟢 +47% de Recall mejorado |
 
+#### Validación Cruzada (Robustez)
+
+Para asegurar que el rendimiento no dependa de una partición aleatoria, se aplicó **StratifiedKFold (5 folls)**:
+
+- **Regresión Logística:** Obtuvo un **CV Recall de 0.7985 (±0.03)**, confirmando su estabilidad como el mejor sensor de abandono.
+- **ROC-AUC Global:** Todos los modelos superaron el **0.84**, demostrando un alto poder de separación de clases.
+- **Estabilidad:** La baja desviación estándar (±0.01) en las métricas garantiza una alta fiabilidad para producción.
+
 ### 8. Evaluación de Métricas y Diagnóstico Final
 
 La optimización permitió alcanzar un equilibrio superior entre precisión y sensibilidad:
