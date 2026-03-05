@@ -120,18 +120,18 @@ Esto confirma que **la fidelización aumenta significativamente con la permanenc
 
 A partir de los resultados obtenidos se proponen las siguientes acciones estratégicas:
 
-| Recomendación                                        | Objetivo                            |
-| ---------------------------------------------------- | ----------------------------------- |
-| Implementar el modelo en el CRM                      | Generar scoring automático de churn |
-| Generar alertas para clientes con probabilidad > 60% | Intervención temprana               |
-| Diseñar campañas para contratos _Month-to-Month_     | Reducir abandono                    |
-| Ofrecer incentivos a clientes de alto gasto          | Retener clientes de alto valor      |
-| Monitorear desempeño del modelo mensualmente         | Control de calidad del modelo       |
-| Reentrenar el modelo trimestralmente                 | Mantener precisión predictiva       |
+| Recomendación                                        | Objetivo                                                     |
+| ---------------------------------------------------- | ------------------------------------------------------------ |
+| Implementar el modelo en el CRM                      | Generar scoring automático de churn                          |
+| Generar alertas para clientes con probabilidad > 60% | Intervención temprana                                        |
+| Diseñar campañas para contratos _Month-to-Month_     | Reducir abandono                                             |
+| Ofrecer incentivos a clientes de alto gasto          | Retener clientes de alto valor                               |
+| Monitorear desempeño del modelo mensualmente         | Control de calidad del modelo                                |
+| Reentrenar el modelo trimestralmente                 | Mantener precisión predictiva frente a cambios en el mercado |
 
 ---
 
-# 6. Implementación Operativa
+# 6. Implementación Operativa y Despliegue
 
 El modelo puede integrarse en los sistemas de negocio mediante los siguientes procesos:
 

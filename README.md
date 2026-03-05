@@ -114,10 +114,11 @@ Dado el desbalance de clases, se aplicaron técnicas de balanceo para priorizar 
 | **MLP (SMOTE)**         |   0.7590   |   0.6134   | 🟢 +61% de Recall mejorado |
 | **Random Forest**       |   0.7518   | **0.6353** | 🟢 +62% de Recall mejorado |
 | **XGBoost**             |   0.7410   |   0.6186   | 🟢 +47% de Recall mejorado |
+| **LightGBM**            |   0.7302   |   0.6133   | 🟢 +41% de Recall mejorado |
 
 #### Validación Cruzada (Robustez)
 
-Para asegurar que el rendimiento no dependa de una partición aleatoria, se aplicó **StratifiedKFold (5 folls)**:
+Para asegurar que el rendimiento no dependa de una partición aleatoria, se aplicó **StratifiedKFold (5 folds)**:
 
 - **Regresión Logística:** Obtuvo un **CV Recall de 0.7985 (±0.03)**, confirmando su estabilidad como el mejor sensor de abandono.
 - **ROC-AUC Global:** Todos los modelos superaron el **0.84**, demostrando un alto poder de separación de clases.
@@ -134,7 +135,7 @@ La optimización permitió alcanzar un equilibrio superior entre precisión y se
 | :--------------------------- | :------------------ | :--------: |
 | **Mejor Recall (Detección)** | Logistic Regression |   0.7842   |
 | **Mejor F1-Score (Balance)** | Random Forest       |   0.6353   |
-| **Mejor Generalización**     | MLP (SMOTE)         | Gap 0.0137 |
+| **Mejor Consistencia (CV)**  | LightGBM            | F1: 0.6276 |
 
 ### 9. Recomendación Estratégica de Negocio
 
