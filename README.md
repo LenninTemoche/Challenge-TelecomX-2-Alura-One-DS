@@ -141,9 +141,21 @@ La optimización permitió alcanzar un equilibrio superior entre precisión y se
 Se sugieren dos caminos de acción basados en el perfil del modelo:
 
 1.  **Estrategia de Retención Masiva (Prioridad: No perder clientes):**
-    - Utilizar **Regresión Logística (Balanced)**. Es el modelo más sensible para detectar el churn (**78% Recall**), ideal para campañas preventivas amplias.
+    - Utilizar **Regresión Logística (Balanced)**. Es el modelo más sensible para detectar el churn (**82.1% Recall** en Test Set), ideal para campañas preventivas amplias.
 2.  **Estrategia de Eficiencia Operativa (Prioridad: Costo-Beneficio):**
     - Utilizar **Random Forest (Balanced)**. Ofrece el mejor balance global (**0.635 F1-Score**) reduciendo la cantidad de clientes contactados innecesariamente (menos falsos positivos).
+
+### 10. Evaluación en el Conjunto de Prueba (Test Set)
+
+Para validar la capacidad de generalización del modelo elegido (**Regresión Logística**), se evaluó en el conjunto de datos de prueba (`Test Set`), el cual fue aislado desde el inicio del proyecto.
+
+| Métrica       |   Valor   | Interpretación                                                |
+| :------------ | :-------: | :------------------------------------------------------------ |
+| **Accuracy**  |   76.0%   | Proporción global de predicciones correctas.                  |
+| **Recall**    | **82.1%** | **Capacidad de detectar 8 de cada 10 fugas reales.**          |
+| **Precision** |   53.0%   | Precisión en las alarmas de riesgo generadas.                 |
+| **F1-Score**  |   64.4%   | Balance armónico entre precisión y detección.                 |
+| **ROC-AUC**   | **85.1%** | Excelente capacidad de separar clientes leales de desertores. |
 
 ---
 
