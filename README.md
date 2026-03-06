@@ -152,11 +152,24 @@ Para validar la capacidad de generalización del modelo elegido (**Regresión Lo
 
 | Métrica       |   Valor   | Interpretación                                                |
 | :------------ | :-------: | :------------------------------------------------------------ |
-| **Accuracy**  |   76.0%   | Proporción global de predicciones correctas.                  |
+| **Accuracy**  |   77.4%   | Proporción global de predicciones correctas.                  |
 | **Recall**    | **82.1%** | **Capacidad de detectar 8 de cada 10 fugas reales.**          |
-| **Precision** |   53.0%   | Precisión en las alarmas de riesgo generadas.                 |
+| **Precision** |   52.9%   | Precisión en las alarmas de riesgo generadas.                 |
 | **F1-Score**  |   64.4%   | Balance armónico entre precisión y detección.                 |
-| **ROC-AUC**   | **85.1%** | Excelente capacidad de separar clientes leales de desertores. |
+| **ROC-AUC**   | **84.9%** | Excelente capacidad de separar clientes leales de desertores. |
+
+---
+
+### Factores Clave que Impulsan el Churn (Drivers)
+
+El modelo de Regresión Logística nos permite identificar que los **Contratos de dos años** y la **Antigüedad (Tenure)** son los principales protectores contra el abandono, mientras que el **Servicio de Fibra Óptica** y los **Cargos Totales** elevados son los principales detonantes.
+
+| Incrementan el Churn (Riesgo)      | Disminuyen el Churn (Lealtad)   |
+| :--------------------------------- | :------------------------------ |
+| 🔴 Internet: Fibra Óptica (+0.501) | 🟢 Contrato: Dos años (-1.218)  |
+| 🔴 Cargos Totales (+0.399)         | 🟢 Antigüedad (Tenure) (-1.090) |
+| 🔴 Pago: Electronic Check (+0.361) | 🟢 Servicio Telefónico (-0.659) |
+| 🔴 Cargos Mensuales (+0.354)       | 🟢 Contrato: Un año (-0.653)    |
 
 ---
 
@@ -168,22 +181,22 @@ El uso de estos modelos permite a TelecomX optimizar sus recursos al dirigir sus
 
 ### Tecnologías Utilizadas
 
-| Categoría           | Herramientas                                  |
-| ------------------- | --------------------------------------------- |
-| Lenguaje            | Python 3.10+                                  |
-| Manipulación de datos | Pandas, NumPy                               |
-| Machine Learning    | Scikit-learn, XGBoost, LightGBM               |
-| Balanceo de clases	| class_weight='balanced', scale_pos_weight, SMOTE |
-| Visualización	      | Matplotlib, Seaborn                           |
-| Serialización	      | Pickle                                        |
+| Categoría             | Herramientas                                     |
+| --------------------- | ------------------------------------------------ |
+| Lenguaje              | Python 3.10+                                     |
+| Manipulación de datos | Pandas, NumPy                                    |
+| Machine Learning      | Scikit-learn, XGBoost, LightGBM                  |
+| Balanceo de clases    | class_weight='balanced', scale_pos_weight, SMOTE |
+| Visualización         | Matplotlib, Seaborn                              |
+| Serialización         | Pickle                                           |
 
 Este proyecto sigue un flujo de desarrollo utilizando Pipelines para asegurar la reproducibilidad y facilidad de despliegue.
 
-* **Fecha de finalización:** 06 de Marzo de 2026
+- **Fecha de finalización:** 06 de Marzo de 2026
 
-* **Autor:** Lennin Billey Temoche Gómez
+- **Autor:** Lennin Billey Temoche Gómez
 
-* **Proyecto:** TelecomX - Challenge 2 - Alura One - Data Science
+- **Proyecto:** TelecomX - Challenge 2 - Alura One - Data Science
 
 ---
 

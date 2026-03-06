@@ -27,21 +27,21 @@ Los resultados obtenidos evidencian una **alta capacidad de detección de churn*
 
 | Métrica   | Valor  |
 | --------- | ------ |
-| Accuracy  | 76.00% |
+| Accuracy  | 77.38% |
 | Recall    | 82.08% |
-| Precision | 53.01% |
-| F1-Score  | 64.42% |
-| ROC-AUC   | 85.11% |
+| Precision | 52.93% |
+| F1-Score  | 64.39% |
+| ROC-AUC   | 84.91% |
 
 ## 2.2 Interpretación de Métricas
 
 **Recall (82.08%)**  
 El modelo detecta correctamente aproximadamente **8 de cada 10 clientes que abandonarán el servicio**.
 
-**Precision (53.01%)**  
+**Precision (52.93%)**  
 De todos los clientes identificados como riesgo de abandono, aproximadamente **la mitad realmente abandonan el servicio**.
 
-**ROC-AUC (85.11%)**  
+**ROC-AUC (84.91%)**  
 El modelo presenta una **buena capacidad de discriminación** entre clientes que abandonan y los que permanecen. Un valor superior al 80% indica que el ordenamiento de probabilidad de riesgo es sumamente confiable para el negocio.
 
 ## 2.3 Robustez y Validación Cruzada
@@ -58,7 +58,7 @@ Para garantizar que estos resultados no fueran fruto del azar, se aplicó una va
 | Indicador                                          | Resultado |
 | -------------------------------------------------- | --------- |
 | Clientes que se van detectados correctamente       | **82.1%** |
-| Clientes marcados como riesgo que realmente se van | **53.0%** |
+| Clientes marcados como riesgo que realmente se van | **52.9%** |
 
 Estos resultados indican que el modelo está **optimizado para maximizar la detección de churn**, lo cual es particularmente útil en estrategias de retención donde **es preferible identificar más clientes potencialmente en riesgo aunque existan algunos falsos positivos**.
 
@@ -155,7 +155,7 @@ Se han generado los siguientes archivos para la puesta en producción:
 
 | Modelo                                        | Fecha      | Recall | Precision | ROC-AUC |
 | --------------------------------------------- | ---------- | ------ | --------- | ------- |
-| Logistic Regression (class_weight='balanced') | 2026-03-06 | 82.1%  | 53.0%     | 85.1%   |
+| Logistic Regression (class_weight='balanced') | 2026-03-06 | 82.1%  | 52.9%     | 84.9%   |
 
 ---
 
