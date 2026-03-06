@@ -4,7 +4,7 @@
 
 **Proyecto:** Sistema de detección temprana de abandono de clientes  
 **Modelo:** Regresión Logística (`class_weight='balanced'`)  
-**Fecha de evaluación:** 04 de marzo de 2026  
+**Fecha de evaluación:** 06 de marzo de 2026  
 **Estado del proyecto:** Modelo validado y listo para producción
 
 ---
@@ -42,7 +42,7 @@ El modelo detecta correctamente aproximadamente **8 de cada 10 clientes que aban
 De todos los clientes identificados como riesgo de abandono, aproximadamente **la mitad realmente abandonan el servicio**.
 
 **ROC-AUC (85.11%)**  
-El modelo presenta una **excelente capacidad de discriminación** entre clientes que abandonan y los que permanecen. Un valor superior al 85% indica que el ordenamiento de probabilidad de riesgo es sumamente confiable para el negocio.
+El modelo presenta una **buena capacidad de discriminación** entre clientes que abandonan y los que permanecen. Un valor superior al 80% indica que el ordenamiento de probabilidad de riesgo es sumamente confiable para el negocio.
 
 ## 2.3 Robustez y Validación Cruzada
 
@@ -146,8 +146,8 @@ La implementación permitirá evolucionar de un enfoque **reactivo a uno predict
 
 Se han generado los siguientes archivos para la puesta en producción:
 
-- **`champion_model/churn_model_final.pkl`**: Pipeline completo (escalador + modelo) serializado.
-- **`champion_model/model_info.pkl`**: Metadatos, versión y métricas de referencia.
+- **`churn_model_final.pkl`**: Pipeline completo (escalador + modelo) serializado.
+- **`model_info.pkl`**: Metadatos, versión y métricas de referencia.
 
 ---
 
@@ -155,7 +155,7 @@ Se han generado los siguientes archivos para la puesta en producción:
 
 | Modelo                                        | Fecha      | Recall | Precision | ROC-AUC |
 | --------------------------------------------- | ---------- | ------ | --------- | ------- |
-| Logistic Regression (class_weight='balanced') | 2026-03-04 | 82.1%  | 53.0%     | 85.1%   |
+| Logistic Regression (class_weight='balanced') | 2026-03-06 | 82.1%  | 53.0%     | 85.1%   |
 
 ---
 

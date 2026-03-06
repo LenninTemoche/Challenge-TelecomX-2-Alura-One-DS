@@ -166,4 +166,25 @@ El uso de estos modelos permite a TelecomX optimizar sus recursos al dirigir sus
 
 ---
 
-_Este proyecto sigue un flujo de MLOps utilizando Pipelines para asegurar la reproducibilidad y facilidad de despliegue._
+### Tecnologías Utilizadas
+
+| Categoría           | Herramientas                                  |
+| ------------------- | --------------------------------------------- |
+| Lenguaje            | Python 3.10+                                  |
+| Manipulación de datos | Pandas, NumPy                               |
+| Machine Learning    | Scikit-learn, XGBoost, LightGBM               |
+| Balanceo de clases	| class_weight='balanced', scale_pos_weight, SMOTE |
+| Visualización	      | Matplotlib, Seaborn                           |
+| Serialización	      | Pickle                                        |
+
+Este proyecto sigue un flujo de desarrollo utilizando Pipelines para asegurar la reproducibilidad y facilidad de despliegue.
+
+* **Fecha de finalización:** 06 de Marzo de 2026
+
+* **Autor:** Lennin Billey Temoche Gómez
+
+* **Proyecto:** TelecomX - Challenge 2 - Alura One - Data Science
+
+---
+
+_Este proyecto sigue un flujo de desarrollo utilizando Pipelines para asegurar la reproducibilidad y facilidad de despliegue._
