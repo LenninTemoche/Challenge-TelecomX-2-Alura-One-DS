@@ -195,7 +195,7 @@ Para validar la capacidad de generalización del modelo elegido (**Regresión Lo
 ---
 
 <p align="center">
-<img src="imgs/Curva_Roc_modelo_final_RL.png" width="500">
+<img src="imgs/Curva_Roc_Modelo_final_RL.png" width="500">
 </p>
 
 <p align="center">
