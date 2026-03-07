@@ -242,7 +242,7 @@ El uso de estos modelos permite a TelecomX optimizar sus recursos al dirigir sus
 | Visualización         | Matplotlib, Seaborn                              |
 | Serialización         | Pickle                                           |
 
-Este proyecto sigue un flujo de desarrollo utilizando Pipelines para asegurar la reproducibilidad y facilidad de despliegue.
+---
 
 - **Fecha de finalización:** 06 de Marzo de 2026
 
