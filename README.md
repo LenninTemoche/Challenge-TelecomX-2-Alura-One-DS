@@ -37,6 +37,14 @@ En esta fase se optimizaron las variables existentes y se crearon nuevos indicad
 - **Eliminación de Redundancias**: Se eliminó la variable `ChargesDaily` para evitar multicolinealidad.
 - **Creación de `num_services`**: Nueva variable numérica que cuantifica la cantidad de servicios activos contratados (rango de 1 a 9). Esta variable captura la intensidad de la relación comercial con el cliente.
 
+<p align="center">
+  <img src="imgs/matriz_correlacion_eda.png" width="600">
+</p>
+
+<p align="center">
+<b>Figura 1.</b> Matriz de correlación de variables numéricas 
+</p>
+
 ---
 
 ### 3. Análisis Categórico y Test Chi²
@@ -58,6 +66,14 @@ Se realizó un análisis de proporciones y se aplicó el test estadístico **Chi
 Investigación de patrones clave antes del modelado:
 
 - **Tenure, Contract y ChargesTotal vs Churn**: Análisis conjunto (boxplots, gráficos de barras y scatter plots) para detectar cómo el tiempo de contrato y el gasto acumulado impactan los segmentos con mayor riesgo de cancelación.
+
+<p align="center">
+  <img src="imgs/analisis_dirigido_churn.png" width="650">
+</p>
+
+<p align="center">
+<b>Figura 2.</b> Análisis dirigido del Churn
+</p>
 
 ---
 
@@ -124,6 +140,16 @@ Para asegurar que el rendimiento no dependa de una partición aleatoria, se apli
 - **ROC-AUC Global:** Todos los modelos superaron el **0.84**, demostrando un alto poder de separación de clases.
 - **Estabilidad:** La baja desviación estándar (±0.01) en las métricas garantiza una alta fiabilidad para producción.
 
+<p align="center">
+<img src="imgs/Curva_ROC_AUC_Mean_CV.png" width="550">
+</p>
+
+<p align="center">
+<b>Figura 3.</b> Curva ROC-AUC Mean Cross Validation
+</p>
+
+---
+
 ### 8. Evaluación de Métricas y Diagnóstico Final
 
 La optimización permitió alcanzar un equilibrio superior entre precisión y sensibilidad:
@@ -158,6 +184,24 @@ Para validar la capacidad de generalización del modelo elegido (**Regresión Lo
 | **F1-Score**  |   64.4%   | Balance armónico entre precisión y detección.                 |
 | **ROC-AUC**   | **84.9%** | Excelente capacidad de separar clientes leales de desertores. |
 
+<p align="center">
+<img src="imgs/matriz_confusion_modelo_final_RL.png" width="500">
+</p>
+
+<p align="center">
+<b>Figura 4.</b> Matriz de Confusión Modelo Final Regresión Logística
+</p>
+
+---
+
+<p align="center">
+<img src="imgs/Curva_Roc_modelo_final_RL.png" width="500">
+</p>
+
+<p align="center">
+<b>Figura 5.</b> Curva ROC Modelo Final Regresión Logística
+</p>
+
 ---
 
 ### Factores Clave que Impulsan el Churn (Drivers)
@@ -170,6 +214,14 @@ El modelo de Regresión Logística nos permite identificar que los **Contratos d
 | 🔴 Cargos Totales (+0.399)         | 🟢 Antigüedad (Tenure) (-1.090) |
 | 🔴 Pago: Electronic Check (+0.361) | 🟢 Servicio Telefónico (-0.659) |
 | 🔴 Cargos Mensuales (+0.354)       | 🟢 Contrato: Un año (-0.653)    |
+
+<p align="center">
+<img src="imgs/importancia_variables.png" width="600">
+</p>
+
+<p align="center">
+<b>Figura 5.</b> Importancia de Variables Modelo Final Regresión Logística
+</p>
 
 ---
 
@@ -185,7 +237,7 @@ El uso de estos modelos permite a TelecomX optimizar sus recursos al dirigir sus
 | --------------------- | ------------------------------------------------ |
 | Lenguaje              | Python 3.10+                                     |
 | Manipulación de datos | Pandas, NumPy                                    |
-| Machine Learning      | Scikit-learn, XGBoost, LightGBM                  |
+| Machine Learning      | Scikit-learn, XGBoost, LightGBM, RF, MLP         |
 | Balanceo de clases    | class_weight='balanced', scale_pos_weight, SMOTE |
 | Visualización         | Matplotlib, Seaborn                              |
 | Serialización         | Pickle                                           |
